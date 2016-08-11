@@ -242,7 +242,7 @@ func (si *SolrInterface) Schema() (*Schema, error) {
 // Return 'status' and QTime from solr, if everything is fine status should have value 'OK'
 // QTime will have value -1 if can not determine
 func (si *SolrInterface) Ping() (status string, qtime int, err error) {
-	r, err := HTTPGet(fmt.Sprintf("%s/%s/admin/ping?wt=json", si.conn.url.String(), si.conn.core), nil, si.conn.username, si.conn.password)
+	r, err := HTTPGet(fmt.Sprintf("%s/%s/admin/ping?wt=json", si.conn.url.String(), si.conn.core), nil, si.conn.username, si.conn.password, 0)
 	if err != nil {
 		return "", -1, err
 	}

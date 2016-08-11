@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/url"
 	"strings"
+	"time"
 )
 
 type Schema struct {
@@ -11,6 +12,7 @@ type Schema struct {
 	core     string
 	username string
 	password string
+	timeout  time.Duration
 }
 
 // NewSchema will parse solrUrl and return a schema object, solrUrl must be a absolute url or path
@@ -26,6 +28,11 @@ func NewSchema(solrUrl, core string) (*Schema, error) {
 // Set to a new core
 func (s *Schema) SetCore(core string) {
 	s.core = core
+}
+
+// Set timeout
+func (s *Schema) Timeout(timeout time.Duration) {
+	s.timeout = timeout
 }
 
 func (s *Schema) SetBasicAuth(username, password string) {
@@ -50,9 +57,9 @@ func (s *Schema) Get(path string, params *url.Values) (*SolrResponse, error) {
 	}
 
 	if s.core != "" {
-		r, err = HTTPGet(fmt.Sprintf("%s/%s/schema%s?%s", s.url.String(), s.core, path, params.Encode()), nil, s.username, s.password)
+		r, err = HTTPGet(fmt.Sprintf("%s/%s/schema%s?%s", s.url.String(), s.core, path, params.Encode()), nil, s.username, s.password, s.timeout)
 	} else {
-		r, err = HTTPGet(fmt.Sprintf("%s/schema%s?%s", s.url.String(), path, params.Encode()), nil, s.username, s.password)
+		r, err = HTTPGet(fmt.Sprintf("%s/schema%s?%s", s.url.String(), path, params.Encode()), nil, s.username, s.password, s.timeout)
 	}
 	if err != nil {
 		return nil, err

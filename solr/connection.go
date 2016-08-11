@@ -46,12 +46,11 @@ func HTTPPost(path string, data *[]byte, headers [][]string, username, password 
 }
 
 // HTTPGet make a GET request to url, headers are optional
-func HTTPGet(url string, headers [][]string, username, password string) ([]byte, error) {
-	timeout := time.Duration(100 * time.Millisecond)
-	client := &http.Client{
-			Transport: &transport,
-			Timeout: timeout,
-		}
+func HTTPGet(url string, headers [][]string, username, password string, timeout time.Duration) ([]byte, error) {
+	client := &http.Client{Transport: &transport}
+	if timeout > 0 {
+		client.Timeout = timeout
+	}
 	req, err := http.NewRequest("GET", url, nil)
 
 	if err != nil {
@@ -145,7 +144,7 @@ func (c *Connection) SetBasicAuth(username, password string) {
 
 func (c *Connection) Resource(source string, params *url.Values) (*[]byte, error) {
 	params.Set("wt", "json")
-	r, err := HTTPGet(fmt.Sprintf("%s/%s/%s?%s", c.url.String(), c.core, source, params.Encode()), nil, c.username, c.password)
+	r, err := HTTPGet(fmt.Sprintf("%s/%s/%s?%s", c.url.String(), c.core, source, params.Encode()), nil, c.username, c.password, 0)
 	return &r, err
 
 }
