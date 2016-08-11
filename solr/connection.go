@@ -120,16 +120,17 @@ type Connection struct {
 	core     string
 	username string
 	password string
+	timeout  time.Duration
 }
 
 // NewConnection will parse solrUrl and return a connection object, solrUrl must be a absolute url or path
-func NewConnection(solrUrl, core string) (*Connection, error) {
+func NewConnection(solrUrl, core string, timeout time.Duration) (*Connection, error) {
 	u, err := url.ParseRequestURI(strings.TrimRight(solrUrl, "/"))
 	if err != nil {
 		return nil, err
 	}
 
-	return &Connection{url: u, core: core}, nil
+	return &Connection{url: u, core: core, timeout: timeout}, nil
 }
 
 // Set to a new core
@@ -144,7 +145,7 @@ func (c *Connection) SetBasicAuth(username, password string) {
 
 func (c *Connection) Resource(source string, params *url.Values) (*[]byte, error) {
 	params.Set("wt", "json")
-	r, err := HTTPGet(fmt.Sprintf("%s/%s/%s?%s", c.url.String(), c.core, source, params.Encode()), nil, c.username, c.password, 0)
+	r, err := HTTPGet(fmt.Sprintf("%s/%s/%s?%s", c.url.String(), c.core, source, params.Encode()), nil, c.username, c.password, c.timeout)
 	return &r, err
 
 }

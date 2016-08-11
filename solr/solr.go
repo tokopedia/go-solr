@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"math"
 	"net/url"
+	"time"
 )
 
 // Shortcut for map[string]interface{}
@@ -102,8 +103,8 @@ type SolrInterface struct {
 }
 
 // Return a new instance of SolrInterface
-func NewSolrInterface(solrUrl, core string) (*SolrInterface, error) {
-	c, err := NewConnection(solrUrl, core)
+func NewSolrInterface(solrUrl, core string, timeout time.Duration) (*SolrInterface, error) {
+	c, err := NewConnection(solrUrl, core, timeout)
 	if err != nil {
 		return nil, err
 	}
