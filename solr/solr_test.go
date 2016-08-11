@@ -40,7 +40,7 @@ func TestSolrDocument(t *testing.T) {
 }
 
 func TestSolrInvalidUrl(t *testing.T) {
-	_, err := NewSolrInterface("sdff", "")
+	_, err := NewSolrInterface("sdff", "", 0)
 	if err == nil {
 		t.Errorf("Expected an error")
 		return
@@ -65,7 +65,7 @@ func TestSolrNoConnection(t *testing.T) {
 }
 
 func TestSolrSuccessSelect(t *testing.T) {
-	si, err := NewSolrInterface("http://127.0.0.1:12345/success", "core0")
+	si, err := NewSolrInterface("http://127.0.0.1:12345/success", "core0", 0)
 
 	if err != nil {
 		t.Errorf("Can not instance a new solr interface, err: %s", err)
@@ -138,7 +138,7 @@ func TestSolrConnectionGetWithHeadersError(t *testing.T) {
 }
 
 func TestSolrFailSelect(t *testing.T) {
-	si, err := NewSolrInterface("http://127.0.0.1:12345/fail", "core0")
+	si, err := NewSolrInterface("http://127.0.0.1:12345/fail", "core0", 0)
 
 	if err != nil {
 		t.Errorf("Can not instance a new solr interface, err: %s", err)
@@ -183,7 +183,7 @@ func TestSolrFailSelect(t *testing.T) {
 }
 
 func TestSolrFacetSelect(t *testing.T) {
-	si, err := NewSolrInterface("http://127.0.0.1:12345/facet_counts", "core0")
+	si, err := NewSolrInterface("http://127.0.0.1:12345/facet_counts", "core0", 0)
 
 	if err != nil {
 		t.Errorf("Can not instance a new solr interface, err: %s", err)
@@ -249,7 +249,7 @@ func TestSolrFacetSelect(t *testing.T) {
 }
 
 func TestSolrHighlightSelect(t *testing.T) {
-	si, err := NewSolrInterface("http://127.0.0.1:12345/highlight", "core0")
+	si, err := NewSolrInterface("http://127.0.0.1:12345/highlight", "core0", 0)
 
 	if err != nil {
 		t.Errorf("Can not instance a new solr interface, err: %s", err)
@@ -298,7 +298,7 @@ func TestSolrHighlightSelect(t *testing.T) {
 }
 
 func TestSolrResultLoopSelect(t *testing.T) {
-	si, err := NewSolrInterface("http://127.0.0.1:12345/facet_counts", "core0")
+	si, err := NewSolrInterface("http://127.0.0.1:12345/facet_counts", "core0", 0)
 	if err != nil {
 		t.Errorf("Can not instance a new solr interface, err: %s", err)
 	}
@@ -338,7 +338,7 @@ func TestSolrResultLoopSelect(t *testing.T) {
 
 func TestSolrSuccessStandaloneCommit(t *testing.T) {
 
-	si, err := NewSolrInterface("http://127.0.0.1:12345/standalonecommit", "core0")
+	si, err := NewSolrInterface("http://127.0.0.1:12345/standalonecommit", "core0", 0)
 
 	if err != nil {
 		t.Errorf("Can not instance a new solr interface, err: %s", err)
@@ -401,7 +401,7 @@ func TestMakeAddChunks(t *testing.T) {
 	}
 }
 func TestAdd(t *testing.T) {
-	si, err := NewSolrInterface("http://127.0.0.1:12345/add", "core0")
+	si, err := NewSolrInterface("http://127.0.0.1:12345/add", "core0", 0)
 	if err != nil {
 		t.Errorf(err.Error())
 	}
@@ -428,7 +428,7 @@ func TestAdd(t *testing.T) {
 }
 
 func TestDelete(t *testing.T) {
-	si, err := NewSolrInterface("http://127.0.0.1:12345/delete", "core0")
+	si, err := NewSolrInterface("http://127.0.0.1:12345/delete", "core0", 0)
 	if err != nil {
 		t.Errorf(err.Error())
 	}
@@ -452,7 +452,7 @@ func TestDelete(t *testing.T) {
 }
 
 func TestXMLResponse(t *testing.T) {
-	si, err := NewSolrInterface("http://127.0.0.1:12345/xml", "core0")
+	si, err := NewSolrInterface("http://127.0.0.1:12345/xml", "core0", 0)
 	if err != nil {
 		t.Errorf(err.Error())
 	}
@@ -473,7 +473,7 @@ func TestXMLResponse(t *testing.T) {
 }
 
 func TestRollback(t *testing.T) {
-	si, err := NewSolrInterface("http://127.0.0.1:12345/command", "core0")
+	si, err := NewSolrInterface("http://127.0.0.1:12345/command", "core0", 0)
 	if err != nil {
 		t.Errorf(err.Error())
 	}
@@ -487,7 +487,7 @@ func TestRollback(t *testing.T) {
 }
 
 func TestOptimize(t *testing.T) {
-	si, err := NewSolrInterface("http://127.0.0.1:12345/command", "core0")
+	si, err := NewSolrInterface("http://127.0.0.1:12345/command", "core0", 0)
 	if err != nil {
 		t.Errorf(err.Error())
 	}
@@ -510,7 +510,7 @@ func TestOptimize(t *testing.T) {
 }
 
 func TestGrouped(t *testing.T) {
-	si, err := NewSolrInterface("http://127.0.0.1:12345/grouped", "core0")
+	si, err := NewSolrInterface("http://127.0.0.1:12345/grouped", "core0", 0)
 	if err != nil {
 		t.Errorf(err.Error())
 	}
@@ -538,7 +538,7 @@ func TestGrouped(t *testing.T) {
 }
 
 func TestStats(t *testing.T) {
-	si, err := NewSolrInterface("http://127.0.0.1:12345/stats", "collection1")
+	si, err := NewSolrInterface("http://127.0.0.1:12345/stats", "collection1", 0)
 	if err != nil {
 		t.Errorf(err.Error())
 	}
@@ -562,7 +562,7 @@ func TestStats(t *testing.T) {
 }
 
 func TestMoreLikeThisSuccess(t *testing.T) {
-	si, err := NewSolrInterface("http://127.0.0.1:12345/success", "collection1")
+	si, err := NewSolrInterface("http://127.0.0.1:12345/success", "collection1", 0)
 	if err != nil {
 		t.Errorf(err.Error())
 	}
@@ -591,7 +591,7 @@ func TestMoreLikeThisSuccess(t *testing.T) {
 }
 
 func TestSpellCheck(t *testing.T) {
-	si, err := NewSolrInterface("http://127.0.0.1:12345/solr", "collection1")
+	si, err := NewSolrInterface("http://127.0.0.1:12345/solr", "collection1", 0)
 	if err != nil {
 		t.Errorf(err.Error())
 	}
@@ -617,7 +617,7 @@ func TestSpellCheck(t *testing.T) {
 }
 
 func TestSpellCheckNotFound(t *testing.T) {
-	si, err := NewSolrInterface("http://127.0.0.1:12345/stats", "collection1")
+	si, err := NewSolrInterface("http://127.0.0.1:12345/stats", "collection1", 0)
 	if err != nil {
 		t.Errorf(err.Error())
 	}
@@ -642,7 +642,7 @@ func TestSpellCheckNotFound(t *testing.T) {
 }
 
 func TestMoreLikeThisError(t *testing.T) {
-	si, err := NewSolrInterface("http://127.0.0.1:12345/error", "collection1")
+	si, err := NewSolrInterface("http://127.0.0.1:12345/error", "collection1", 0)
 	if err != nil {
 		t.Errorf(err.Error())
 	}
@@ -675,7 +675,7 @@ func TestMoreLikeThisError(t *testing.T) {
 }
 
 func TestNoResponseGrouped(t *testing.T) {
-	si, err := NewSolrInterface("http://127.0.0.1:12345/noresponse", "core1")
+	si, err := NewSolrInterface("http://127.0.0.1:12345/noresponse", "core1", 0)
 	if err != nil {
 		t.Errorf(err.Error())
 	}
@@ -703,7 +703,7 @@ func TestNoResponseGrouped(t *testing.T) {
 /*
 func TestRealAdd(t *testing.T) {
 	fmt.Println("test_real")
-	si, err := NewSolrInterface("http://localhost:8983/solr", "collection1")
+	si, err := NewSolrInterface("http://localhost:8983/solr", "collection1", 0)
 	if err != nil {
 		t.Errorf(err.Error())
 	}
@@ -739,7 +739,7 @@ func TestRealAdd(t *testing.T) {
 
 func TestRealDelete(t *testing.T) {
 	fmt.Println("test_real")
-	si, err := NewSolrInterface("http://localhost:8983/solr", "collection1")
+	si, err := NewSolrInterface("http://localhost:8983/solr", "collection1", 0)
 	if err != nil {
 		t.Errorf(err.Error())
 	}
@@ -753,7 +753,7 @@ func TestRealDelete(t *testing.T) {
 /*
 func TestRealDeleteAll(t *testing.T) {
 	fmt.Println("test_real")
-	si, err := NewSolrInterface("http://localhost:8983/solr", "collection1")
+	si, err := NewSolrInterface("http://localhost:8983/solr", "collection1", 0)
 	if err != nil {
 		t.Errorf(err.Error())
 	}
@@ -764,7 +764,7 @@ func TestRealDeleteAll(t *testing.T) {
 }
 */
 func TestNewCoreAdmin(t *testing.T) {
-	si, err := NewSolrInterface(solrUrl, "collection1")
+	si, err := NewSolrInterface(solrUrl, "collection1", 0)
 	si.SetBasicAuth("test", "test")
 	ca, err := si.CoreAdmin()
 	if err != nil {
@@ -891,7 +891,7 @@ func TestSupportedAction(t *testing.T) {
 
 // Schema tests
 func TestNewSchema(t *testing.T) {
-	si, err := NewSolrInterface(solrUrl, "collection1")
+	si, err := NewSolrInterface(solrUrl, "collection1", 0)
 	si.SetBasicAuth("test", "test")
 	s, err := si.Schema()
 	if err != nil {
@@ -1071,7 +1071,7 @@ func TestSchemaPost(t *testing.T) {
 }
 
 func TestPing(t *testing.T) {
-	si, _ := NewSolrInterface(solrUrl, "collection1")
+	si, _ := NewSolrInterface(solrUrl, "collection1", 0)
 	status, qtime, _ := si.Ping()
 	if status != "OK" {
 		t.Errorf("Status expected to be 'OK' but got '%s'", status)
