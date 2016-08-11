@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
+	"time"
 )
 
 var userAgent = fmt.Sprintf("Go-solr/%s (+https://github.com/vanng822/go-solr)", VERSION)
@@ -46,7 +47,11 @@ func HTTPPost(path string, data *[]byte, headers [][]string, username, password 
 
 // HTTPGet make a GET request to url, headers are optional
 func HTTPGet(url string, headers [][]string, username, password string) ([]byte, error) {
-	client := &http.Client{Transport: &transport}
+	timeout := time.Duration(100 * time.Millisecond)
+	client := &http.Client{
+			Transport: &transport,
+			Timeout: timeout,
+		}
 	req, err := http.NewRequest("GET", url, nil)
 
 	if err != nil {
