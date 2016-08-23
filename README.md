@@ -31,10 +31,12 @@ go get github.com/vanng822/go-solr/solr
     import (
     	"github.com/vanng822/go-solr/solr"
     	"fmt"
+    	"time"
     )
   
     func main() {
-      si, _ := solr.NewSolrInterface("http://localhost:8983/solr", "collection1")
+      timeout := 50 * time.Millisecond
+      si, _ := solr.NewSolrInterface("http://localhost:8983/solr", "collection1", timeout)
       query := solr.NewQuery()
       query.Q("*:*")
       s := si.Search(query)
